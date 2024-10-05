@@ -1,28 +1,39 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose;
 
-const authModel = new Schema({
+const userModel = new Schema({
     username: {
         type: String,
-        required: true,
+        unique: true
     },
     email: {
         type: String,
-        required: true,
-        unique: true
     },
     name: {
         type: String,
-        required: true,
+    },
+    avatar: {
+        type: String,
     },
     password: {
         type: String,
-        required: true,
     },
     role: {
         type: String,
-        enum: ['admin', 'employee']
+        enum: ['admin', 'employee'],
+        default: 'employee'
+    },
+    department: {
+        type: String,
+        enum: ['hr', 'engineering', 'sales', 'marketing', 'finance', 'hiring']
+    },
+    position: {
+        type: String,
+        enum: ['manager', 'developer', 'designer', 'analyst', 'intern', 'sales executive', 'hr']
+    },
+    phone: {
+        type: String,
     }
-}, { timestamps: true })
+}, { timestamps: true });
 
-module.exports = mongoose.model('Auth', authModel)
+module.exports = mongoose.model('User', userModel)

@@ -9,7 +9,7 @@ const Navbar = () => {
     const logoutHandler = () => {
         localStorage.removeItem('user')
         localStorage.removeItem('token');
-        navigate('/admin')
+        navigate('/login')
     }
 
     return (
@@ -19,15 +19,15 @@ const Navbar = () => {
                     <div className="flex justify-between items-center h-16">
                         <div className="flex-shrink-0">
                             <a href="/" className="text-2xl font-extrabold tracking-widest">
-                                Admin Panel
+                                Employee Portal
                             </a>
                         </div>
                         <div className="hidden md:flex space-x-8">
-                            <NavLink to='/employee' className="hover:bg-indigo-500 hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition duration-300 ease-in-out">
-                                Employees
-                            </NavLink>
                             <NavLink to='/attendance' className="hover:bg-indigo-500 hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition duration-300 ease-in-out">
                                 Attendance
+                            </NavLink>
+                            <NavLink to='/project' className="hover:bg-indigo-500 hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition duration-300 ease-in-out">
+                                Projects
                             </NavLink>
                             <a href="#" className="hover:bg-indigo-500 hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition duration-300 ease-in-out">
                                 Services
@@ -69,10 +69,10 @@ const Navbar = () => {
                     >
                         <div className="px-2 pt-2 pb-3 space-y-1">
                             <NavLink to='/users' className="hover:bg-indigo-500 hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition duration-300 ease-in-out">
-                                Employees
+                                Users
                             </NavLink>
                             <a href="#" className="block text-white hover:bg-indigo-500 px-3 py-2 rounded-md text-base font-medium transition duration-300 ease-in-out">
-                                Attendance
+                                About
                             </a>
                             <a href="#" className="block text-white hover:bg-indigo-500 px-3 py-2 rounded-md text-base font-medium transition duration-300 ease-in-out">
                                 Services

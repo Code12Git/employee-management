@@ -1,4 +1,4 @@
 const authController = require('./authController')
 const employeeController = require('./employeeController')
-
-module.exports = { authController, employeeController }
+const attendanceController = require('./attendanceController')
+module.exports = { authController, employeeController, attendanceController }

@@ -1,3 +1,3 @@
 const user = require('./user')
-const employee = require('./employee')
-module.exports = { userModel: user, employeeModel: employee }
+const attendance = require('./attendance')
+module.exports = { userModel: user, attendanceModel: attendance }

@@ -36,8 +36,8 @@ const Login = () => {
     };
 
     return (
-        <div className="relative flex justify-center items-center min-h-screen bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-600 to-red-600 opacity-20 filter blur-3xl"></div>
+        <div className="relative flex justify-center items-center min-h-screen bg-gradient-to-r from-cyan-500 via-purple-500 to-orange-500 overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-cyan-600 to-orange-600 opacity-20 filter blur-3xl"></div>
 
             <motion.div
                 initial={{ opacity: 0, y: 50 }}
@@ -45,7 +45,7 @@ const Login = () => {
                 transition={{ duration: 0.6 }}
                 className="relative w-full max-w-md p-8 space-y-6 bg-white/80 backdrop-blur-lg rounded-3xl shadow-xl transform hover:shadow-2xl transition-all"
             >
-                <h2 className="text-center text-4xl font-bold text-gray-900">Admin Panel</h2>
+                <h2 className="text-center text-4xl font-bold text-gray-900">Employee Login</h2>
                 <p className="text-center text-sm text-gray-500">Sign in to access your dashboard</p>
 
                 {loginError && <p className="text-red-500 font-bold text-center">{loginError}</p>}
