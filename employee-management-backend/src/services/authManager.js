@@ -40,13 +40,13 @@ const register = async (body) => {
 };
 
 const login = async (body) => {
-    const { email, password } = body;
+    const { username, password } = body;
     try {
-        if (_.isEmpty(email) || _.isEmpty(password)) {
+        if (_.isEmpty(username) || _.isEmpty(password)) {
             const error = { ...BAD_REQUEST, message: "Please enter all required fields" };
             throw new AppError(error.code, error.message, error.statusCode);
         }
-        const user = await userModel.findOne({ email });
+        const user = await userModel.findOne({ username });
         if (!user) {
             const error = { ...NOT_FOUND, message: "User does not exist" };
             throw new AppError(error.code, error.message, error.statusCode);
@@ -58,7 +58,7 @@ const login = async (body) => {
             throw new AppError(error.code, error.message, error.statusCode);
         }
 
-        const token = jwt.sign({ email: user.email, role: user.role }, fromEnv('SECRET_KEY'), { expiresIn: '1d' });
+        const token = jwt.sign({ username: user.username, role: user.role }, fromEnv('SECRET_KEY'), { expiresIn: '1d' });
         return { user, token };
     } catch (err) {
         throw err;

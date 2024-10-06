@@ -2,11 +2,10 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import { validateLoginCredentials } from '../validations/authValidation';
 import { login } from '../providers/authProvider';
+
 const Login = () => {
-    const [credentials, setCredentials] = useState({ email: '', password: '' });
-    const [errors, setErrors] = useState({});
+    const [credentials, setCredentials] = useState({ username: '', password: '' });
     const [loginError, setLoginError] = useState('');
     const navigate = useNavigate();
 
@@ -18,18 +17,12 @@ const Login = () => {
     const submitHandler = async (e) => {
         e.preventDefault();
 
-        const validationErrors = validateLoginCredentials(credentials);
-        if (Object.keys(validationErrors).length > 0) {
-            setErrors(validationErrors);
-            return;
-        }
-
         try {
             const user = await login(credentials);
             const userData = user.data.data.user;
             const token = user.data.data.token;
 
-            setCredentials({ email: '', password: '' });
+            setCredentials({ username: '', password: '' });
             localStorage.setItem('user', JSON.stringify(userData));
             localStorage.setItem('token', JSON.stringify(token));
 
@@ -59,20 +52,19 @@ const Login = () => {
 
                 <form className="space-y-6" onSubmit={submitHandler}>
                     <div className="relative">
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                            Email
+                        <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+                            Username
                         </label>
                         <input
-                            type="email"
-                            id="email"
-                            name="email"
+                            type="text"
+                            id="username"
+                            name="username"
                             className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all"
-                            placeholder="Enter your email"
-                            value={credentials.email}
+                            placeholder="Enter your username"
+                            value={credentials.username}
                             onChange={inputChangeHandler}
                             required
                         />
-                        {errors.email && <p className="text-red-400 font-bold">{errors.email}</p>}
                     </div>
 
                     <div className="relative">
@@ -89,7 +81,6 @@ const Login = () => {
                             onChange={inputChangeHandler}
                             required
                         />
-                        {errors.password && <p className="text-red-400 font-bold">{errors.password}</p>}
                     </div>
 
                     <motion.button

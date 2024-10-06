@@ -1,26 +1,30 @@
-const { employeeModel } = require('../models');
+const { userModel } = require('../models');
 const { BAD_REQUEST, CONFLICT, NOT_FOUND } = require('../utils/errors');
 const { AppError } = require('../utils');
 const _ = require('lodash');
-
+const bcrypt = require('bcryptjs')
 const create = async (body) => {
-    const { name, email, avatar, department, position, phone } = body;
+    const { name, email, avatar, password, username, department, position, phone } = body;
 
     try {
-        if (_.isEmpty(name) || _.isEmpty(email)) {
-            const error = { ...BAD_REQUEST, message: "Name and email are required" };
+        if (_.isEmpty(name) || _.isEmpty(email) || _.isEmpty(password)) {
+            const error = { ...BAD_REQUEST, message: "Name, email, and password are required" };
             throw new AppError(error.code, error.message, error.statusCode);
         }
 
-        const existingEmployee = await employeeModel.findOne({ email });
+        const existingEmployee = await userModel.findOne({ username });
         if (existingEmployee) {
-            const error = { ...CONFLICT, message: "Employee with this email already exists" };
+            const error = { ...CONFLICT, message: "Employee with this username already exists" };
             throw new AppError(error.code, error.message, error.statusCode);
         }
 
-        const newEmployee = new employeeModel({
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const newEmployee = new userModel({
             name,
             email,
+            username,
+            password: hashedPassword,
             avatar,
             department,
             position,
@@ -28,15 +32,18 @@ const create = async (body) => {
         });
 
         await newEmployee.save();
+
+
         return newEmployee;
+
     } catch (err) {
         throw err;
     }
-};
+}
 
 const getAll = async () => {
     try {
-        const employees = await employeeModel.find();
+        const employees = await userModel.find();
         if (_.isEmpty(employees)) {
             const error = { ...NOT_FOUND, message: "No employees found" };
             throw new AppError(error.code, error.message, error.statusCode);
@@ -50,7 +57,7 @@ const getAll = async () => {
 
 const get = async (id) => {
     try {
-        const employee = await employeeModel.findById(id);
+        const employee = await userModel.findById(id);
         if (!employee) {
             const error = { ...NOT_FOUND, message: "Employee not found" };
             throw new AppError(error.code, error.message, error.statusCode);
@@ -63,11 +70,11 @@ const get = async (id) => {
 
 const update = async (id, body) => {
     try {
-        const { name, email, avatar, department, position, phone } = body;
+        const { name, email, username, avatar, department, position, phone } = body;
 
-        const updatedEmployee = await employeeModel.findByIdAndUpdate(
+        const updatedEmployee = await userModel.findByIdAndUpdate(
             id,
-            { name, email, avatar, department, position, phone },
+            { name, email, avatar, username, department, position, phone },
             { new: true, runValidators: true }
         );
 
@@ -84,7 +91,7 @@ const update = async (id, body) => {
 
 const deleteOne = async (id) => {
     try {
-        const employee = await employeeModel.findByIdAndDelete(id);
+        const employee = await userModel.findByIdAndDelete(id);
 
         if (!employee) {
             const error = { ...NOT_FOUND, message: "Employee not found" };
@@ -97,17 +104,20 @@ const deleteOne = async (id) => {
     }
 };
 
-const filter = async (filters) => {
+const filter = async (username, name, department, position) => {
     try {
-        const { title, department, position } = filters;
+        let query = {};
 
-        let filterCriteria = {};
-        if (title) filterCriteria.title = title;
-        if (department) filterCriteria.department = department;
-        if (position) filterCriteria.position = position;
+        if (username) query.username = { $regex: new RegExp(username, 'i') };
+        if (name) query.name = { $regex: new RegExp(name, 'i') };
+        if (department) query.department = { $regex: new RegExp(department, 'i') };  // Case-insensitive department filter
+        if (position) query.position = { $regex: new RegExp(position, 'i') };  // Case-insensitive position filter
 
-        const employees = await employeeModel.find(filterCriteria);
 
+        // Find employees based on filters
+        const employees = await userModel.find(query);
+
+        // If no employees found, throw custom error
         if (_.isEmpty(employees)) {
             const error = { ...NOT_FOUND, message: "No employees match the given criteria" };
             throw new AppError(error.code, error.message, error.statusCode);
@@ -118,5 +128,9 @@ const filter = async (filters) => {
         throw err;
     }
 };
+
+
+
+
 
 module.exports = { create, getAll, get, update, deleteOne, filter };

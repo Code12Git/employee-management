@@ -20,7 +20,7 @@ const verifyToken = async (req, res, next) => {
             throw new AppError(error.code, error.message, error.statusCode);
         }
         const decodedToken = jwt.verify(accessToken, fromEnv('SECRET_KEY'));
-        const user = await userModel.findOne({ email: decodedToken.email });
+        const user = await userModel.findOne({ username: decodedToken.username });
         if (_.isEmpty(user)) {
             const error = NOT_FOUND;
             throw new AppError(error.code, error.message, error.statusCode);
@@ -34,7 +34,6 @@ const verifyToken = async (req, res, next) => {
 
 
 const verifyTokenAndAdmin = (request, response, next) => {
-
     try {
         verifyToken(request, response, () => {
 

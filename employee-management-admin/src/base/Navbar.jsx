@@ -23,17 +23,14 @@ const Navbar = () => {
                             </a>
                         </div>
                         <div className="hidden md:flex space-x-8">
-                            <NavLink to='/users' className="hover:bg-indigo-500 hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition duration-300 ease-in-out">
+                            <NavLink to='/employee' className="hover:bg-indigo-500 hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition duration-300 ease-in-out">
                                 Employees
                             </NavLink>
-                            <NavLink to='/project' className="hover:bg-indigo-500 hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition duration-300 ease-in-out">
-                                Projects
+                            <NavLink to='/attendance' className="hover:bg-indigo-500 hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition duration-300 ease-in-out">
+                                Attendance
                             </NavLink>
-                            <a href="#" className="hover:bg-indigo-500 hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition duration-300 ease-in-out">
-                                Services
-                            </a>
-                            <a href="#" className="hover:bg-indigo-500 hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition duration-300 ease-in-out">
-                                Contact
+                            <a href="/payroll" className="hover:bg-indigo-500 hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition duration-300 ease-in-out">
+                                Payroll
                             </a>
                             <button
                                 onClick={logoutHandler}
@@ -68,18 +65,15 @@ const Navbar = () => {
                         className="md:hidden bg-indigo-600"
                     >
                         <div className="px-2 pt-2 pb-3 space-y-1">
-                            <NavLink to='/users' className="hover:bg-indigo-500 hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition duration-300 ease-in-out">
-                                Users
+                            <NavLink to='/employee' className="hover:bg-indigo-500 hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition duration-300 ease-in-out">
+                                Employees
                             </NavLink>
-                            <a href="#" className="block text-white hover:bg-indigo-500 px-3 py-2 rounded-md text-base font-medium transition duration-300 ease-in-out">
-                                About
-                            </a>
-                            <a href="#" className="block text-white hover:bg-indigo-500 px-3 py-2 rounded-md text-base font-medium transition duration-300 ease-in-out">
-                                Services
-                            </a>
-                            <a href="#" className="block text-white hover:bg-indigo-500 px-3 py-2 rounded-md text-base font-medium transition duration-300 ease-in-out">
-                                Contact
-                            </a>
+                            <NavLink to="/attendance" className="block text-white hover:bg-indigo-500 px-3 py-2 rounded-md text-base font-medium transition duration-300 ease-in-out">
+                                Attendance
+                            </NavLink>
+                            <NavLink to="/payroll" className="block text-white hover:bg-indigo-500 px-3 py-2 rounded-md text-base font-medium transition duration-300 ease-in-out">
+                                Payroll
+                            </NavLink>
                             <button
                                 onClick={logoutHandler}
                                 className="w-full text-left text-white hover:bg-red-500 px-3 py-2 rounded-md text-base font-medium transition duration-300 ease-in-out"
@@ -90,7 +84,7 @@ const Navbar = () => {
                     </motion.div>
                 )}
             </nav>
-        </PrivateRoute>
+        </PrivateRoute >
     );
 };
 
