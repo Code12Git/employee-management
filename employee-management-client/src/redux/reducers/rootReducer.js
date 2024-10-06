@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import { employeeData } from "./employeeReducer";
 import { attendanceData } from "./attendanceReducer";
+import { userData } from "./userReducer";
 import { payrollData } from "./payrollReducer";
 
-export default combineReducers({ employeeData, attendanceData, payrollData })
+export default combineReducers({ attendanceData, userData, payrollData })

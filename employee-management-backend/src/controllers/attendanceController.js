@@ -23,7 +23,7 @@ const getAll = async (request, response) => {
 
 const get = async (request, response) => {
     try {
-        const result = await attendanceManager.get(request.params.id);
+        const result = await attendanceManager.get(request.user);
         return responseManager.sendSuccessResponse(response, result, "Attendance fetched successfully");
     } catch (err) {
         return responseManager.sendErrorResponse(response, err, "Failed to fetch Attendance");

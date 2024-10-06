@@ -5,6 +5,7 @@ import Navbar from "./base/Navbar";
 import NotFound from "./pages/NotFound";
 import Attendance from "./pages/Attendance";
 import PrivateRoute from "./hooks/PrivateRoute";
+import Payroll from "./pages/Payroll";
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/attendance" element={<PrivateRoute><Attendance /></PrivateRoute>} />
+        <Route path="/payroll" element={<PrivateRoute><Payroll /></PrivateRoute>} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </div>

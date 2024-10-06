@@ -31,8 +31,8 @@ const create = async (body, user) => {
 };
 
 
-const get = async (employeeId) => {
-    console.log(employeeId);
+const get = async (user) => {
+    const employeeId = user._id
     try {
         const attendance = await attendanceModel.find({ employeeId }).populate('employeeId');
         if (!attendance || attendance.length === 0) {
@@ -51,7 +51,7 @@ const getAll = async () => {
         const attendanceRecords = await attendanceModel.find().populate('employeeId');
         return attendanceRecords;
     } catch (err) {
-        throw new Error(`Error fetching attendance records: ${err.message}`);
+        throw err;
     }
 };
 
@@ -60,14 +60,15 @@ const update = async (attendanceId, status) => {
     try {
         const attendance = await attendanceModel.findById(attendanceId);
         if (!attendance) {
-            throw new Error('Attendance record not found.');
+            const error = { ...NOT_FOUND, message: 'Attendance not found' };
+            throw new AppError(error.code, error.message, error.statusCode);
         }
 
         attendance.status = status;
         const updatedAttendance = await attendance.save();
         return updatedAttendance;
     } catch (err) {
-        throw new Error(`Error updating attendance record: ${err.message}`);
+        throw err;
     }
 };
 
@@ -76,11 +77,12 @@ const deleteOne = async (attendanceId) => {
     try {
         const deletedAttendance = await attendanceModel.findByIdAndDelete(attendanceId);
         if (!deletedAttendance) {
-            throw new Error('Attendance record not found.');
+            const error = { ...NOT_FOUND, message: 'Attendance record not found' };
+            throw new AppError(error.code, error.message, error.statusCode);
         }
         return deletedAttendance;
     } catch (err) {
-        throw new Error(`Error deleting attendance record: ${err.message}`);
+        throw err;
     }
 };
 

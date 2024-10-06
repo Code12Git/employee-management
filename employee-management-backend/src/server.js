@@ -6,6 +6,7 @@ const connection = require('./config/db')
 const authRoute = require('./routes/authRoute')
 const employeeRoute = require('./routes/employeeRoute')
 const attendanceRoute = require('./routes/attendanceRoute')
+const payrollRoute = require('./routes/payrollRoute')
 const app = express()
 const PORT = fromEnv('APP_PORT') || 3000;
 
@@ -17,6 +18,7 @@ app.use(express.json());
 app.use('/api/v1/auth', authRoute)
 app.use('/api/v1/employee', employeeRoute)
 app.use('/api/v1/attendance', attendanceRoute)
+app.use('/api/v1/payroll', payrollRoute)
 
 app.use((req, res, next) => {
     logger.info({

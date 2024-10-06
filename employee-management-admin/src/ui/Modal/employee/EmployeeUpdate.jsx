@@ -152,7 +152,6 @@ const EmployeeUpdate = ({ closeModal, user }) => {
                             </div>
                         </div>
 
-                        {/* Update button */}
                         <div className="mt-6 flex justify-end">
                             <button
                                 type="button"

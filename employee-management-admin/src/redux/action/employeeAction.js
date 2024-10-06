@@ -49,13 +49,7 @@ const updateEmployee = (id, data) => async (dispatch) => {
     }
 };
 
-const filterEmployee = () => async (dispatch) => {
-    try {
-        const response = await privateInstance.get(`/employee`)
-    } catch (error) {
-        console.log(error)
-    }
-}
 
 
-export { fetchEmployee, deleteEmployee, updateEmployee, createEmployee, filterEmployee }
+
+export { fetchEmployee, deleteEmployee, updateEmployee, createEmployee }
