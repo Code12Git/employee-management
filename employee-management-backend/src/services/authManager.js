@@ -1,6 +1,6 @@
 const { userModel } = require('../models')
 const bcrypt = require('bcryptjs')
-const { BAD_REQUEST, CONFLICT, NOT_FOUND } = require('../utils/errors')
+const { BAD_REQUEST, CONFLICT, NOT_FOUND, UNAUTHORIZED } = require('../utils/errors')
 const { AppError } = require('../utils')
 const _ = require('lodash')
 const jwt = require('jsonwebtoken')
