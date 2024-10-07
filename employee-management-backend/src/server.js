@@ -13,7 +13,7 @@ const PORT = fromEnv('APP_PORT') || 3000;
 connection()
 
 const corsOptions = {
-    origin: 'https://megamindsassesment.netlify.app',
+    origin: ['https://megamindsassesment.netlify.app', 'https://megamindsassesmentemployee.netlify.app'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
     optionsSuccessStatus: 200,

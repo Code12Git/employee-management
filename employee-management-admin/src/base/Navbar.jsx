@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import PrivateRoute from '../hooks/PrivateRoute';
 import { useNavigate } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
+
 const Navbar = () => {
     const [isOpen, setIsOpen] = React.useState(false);
     const navigate = useNavigate()
@@ -29,9 +30,9 @@ const Navbar = () => {
                             <NavLink to='/attendance' className="hover:bg-indigo-500 hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition duration-300 ease-in-out">
                                 Attendance
                             </NavLink>
-                            <a href="/payroll" className="hover:bg-indigo-500 hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition duration-300 ease-in-out">
+                            <NavLink href="/payroll" className="hover:bg-indigo-500 hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition duration-300 ease-in-out">
                                 Payroll
-                            </a>
+                            </NavLink>
                             <button
                                 onClick={logoutHandler}
                                 className="w-full text-left text-white hover:bg-red-500 px-3 py-2 rounded-md text-base font-medium transition duration-300 ease-in-out"
@@ -39,7 +40,6 @@ const Navbar = () => {
                                 Logout
                             </button>
                         </div>
-
                         <div className="md:hidden">
                             <button
                                 onClick={() => setIsOpen(!isOpen)}
