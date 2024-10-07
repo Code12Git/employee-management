@@ -5,6 +5,17 @@ The Employee Management System is a web application designed to manage employee-
 
 ---
 
+![Screenshot from 2024-10-07 18-18-36](https://github.com/user-attachments/assets/99a5af98-1243-4afd-8e7e-ef90dd51e878)
+
+![Screenshot from 2024-10-07 18-13-39](https://github.com/user-attachments/assets/b5826fff-6e98-4072-8ff9-bc0a9cc12de6)
+![Screenshot from 2024-10-07 18-18-26](https://github.com/user-attachments/assets/ea640010-2d97-4588-97ad-37bad5213b95)
+![Screenshot from 2024-10-07 18-12-04](https://github.com/user-attachments/assets/70116825-fa2c-48db-a39d-c5b064b9916f)
+![Screenshot from 2024-10-07 18-13-26](https://github.com/user-attachments/assets/4be8e0df-2776-4f08-8f73-591812798c94)
+![Screenshot from 2024-10-07 18-18-36](https://github.com/user-attachments/assets/bf150b66-236a-4f78-894d-e1cde96f6365)
+![Screenshot from 2024-10-07 18-13-26](https://github.com/user-attachments/assets/38679728-ce39-4fee-a49f-c77273e445af)
+![Screenshot from 2024-10-07 18-13-39](https://github.com/user-attachments/assets/959fc3d6-9653-4d51-ab93-6d3f74a707e9)
+![Screenshot from 2024-10-07 18-18-26](https://github.com/user-attachments/assets/44897197-e6da-4162-8f58-1a7dd92d6a89)
+
 ## Features
 
 ### Admin
