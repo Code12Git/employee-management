@@ -53,7 +53,13 @@ export const payrollData = (state = initialState, { type, payload }) => {
             return { ...state, loading: false, error: null };
 
         case UPDATE_PAYROLL_SUCCESS:
-            return { ...state, payroll: state.payroll.filter(payroll => payroll._id !== payload), loading: false, error: null };
+            return {
+                ...state,
+                payroll: state.payroll.map((payroll) => payroll._id === payload._id ? payload : payroll),
+                loading: false,
+                error: null
+            };
+
 
         case UPDATE_PAYROLL_REQUEST:
             return { ...state, loading: true, error: payload };

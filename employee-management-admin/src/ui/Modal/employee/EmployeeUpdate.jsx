@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { X } from 'lucide-react';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { updateEmployee } from '../../../redux/action/employeeAction';
+import { fetchEmployee, updateEmployee } from '../../../redux/action/employeeAction';
 
 const EmployeeUpdate = ({ closeModal, user }) => {
     const dispatch = useDispatch();
@@ -25,10 +25,13 @@ const EmployeeUpdate = ({ closeModal, user }) => {
             [name]: value,
         }));
     };
-
-    console.log(updatedUser)
+    console.log(typeof (updatedUser.role))
     const handleUpdate = () => {
-        dispatch(updateEmployee(user._id, updatedUser));
+        dispatch(updateEmployee(user._id, updatedUser))
+            .then(() => {
+                dispatch(fetchEmployee());
+                closeModal();
+            });
         closeModal();
     };
 

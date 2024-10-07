@@ -9,7 +9,7 @@ const fetchPayroll = (id) => async (dispatch) => {
         console.log(response.data)
         dispatch({ type: FETCH_PAYROLL_SUCCESS, payload: response.data.data });
     } catch (error) {
-        dispatch({ type: FETCH_PAYROLL_FAILURE, payload: error.message });
+        dispatch({ type: FETCH_PAYROLL_FAILURE, payload: error.response.data.message });
     }
 }
 

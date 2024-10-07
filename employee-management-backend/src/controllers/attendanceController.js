@@ -3,7 +3,7 @@ const { responseManager, attendanceManager } = require('../services');
 
 const create = async (request, response) => {
     try {
-        const result = await attendanceManager.create(request.body, request.user);
+        const result = await attendanceManager.create(request.body, request.params);
         return responseManager.sendSuccessResponse(response, result, "Attendance marked successfully");
     } catch (err) {
         return responseManager.sendErrorResponse(response, err, "Attendance marking failed");
@@ -23,7 +23,7 @@ const getAll = async (request, response) => {
 
 const get = async (request, response) => {
     try {
-        const result = await attendanceManager.get(request.user);
+        const result = await attendanceManager.get(request.params);
         return responseManager.sendSuccessResponse(response, result, "Attendance fetched successfully");
     } catch (err) {
         return responseManager.sendErrorResponse(response, err, "Failed to fetch Attendance");

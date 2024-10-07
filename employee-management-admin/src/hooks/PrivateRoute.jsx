@@ -2,9 +2,14 @@ import { Navigate } from "react-router-dom";
 import PropTypes from 'prop-types';
 
 function PrivateRoute({ children }) {
-    const user = localStorage.getItem('user');
+    const user = JSON.parse(localStorage.getItem('user'));
     const token = localStorage.getItem('token');
-    return user && token ? children : <Navigate to="/admin" />;
+
+    if (user && token && user.role === 'admin') {
+        return children;
+    } else {
+        return <Navigate to="/admin" />;
+    }
 }
 
 PrivateRoute.propTypes = {

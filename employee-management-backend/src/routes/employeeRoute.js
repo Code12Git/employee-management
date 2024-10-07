@@ -9,5 +9,6 @@ router.get('/:id', authenticator.verifyToken, employeeController.get);
 router.put('/:id', authenticator.verifyTokenAndAdmin, employeeController.update);
 router.delete('/:id', authenticator.verifyTokenAndAdmin, employeeController.deleteOne);
 router.get('/filter', authenticator.verifyTokenAndAdmin, employeeController.filter);
+router.put('/upload', authenticator.verifyToken, employeeController.upload);
 
 module.exports = router;

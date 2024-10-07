@@ -2,9 +2,11 @@ const { userModel } = require('../models');
 const { BAD_REQUEST, CONFLICT, NOT_FOUND } = require('../utils/errors');
 const { AppError } = require('../utils');
 const _ = require('lodash');
+const { uploadOnCloudinary } = require('./cloudinary');
 const bcrypt = require('bcryptjs')
+
 const create = async (body) => {
-    const { name, email, avatar, password, username, department, position, phone } = body;
+    const { name, email, avatar, password, role, username, department, position, phone } = body;
 
     try {
         if (_.isEmpty(name) || _.isEmpty(email) || _.isEmpty(password)) {
@@ -23,6 +25,7 @@ const create = async (body) => {
         const newEmployee = new userModel({
             name,
             email,
+            role,
             username,
             password: hashedPassword,
             avatar,
@@ -70,11 +73,11 @@ const get = async (id) => {
 
 const update = async (id, body) => {
     try {
-        const { name, email, username, avatar, department, position, phone } = body;
+        const { name, email, username, avatar, role, department, position, phone } = body;
 
         const updatedEmployee = await userModel.findByIdAndUpdate(
             id,
-            { name, email, avatar, username, department, position, phone },
+            { name, email, avatar, username, role, department, position, phone },
             { new: true, runValidators: true }
         );
 
@@ -129,8 +132,41 @@ const filter = async (username, name, department, position) => {
     }
 };
 
+const upload = async (files, user) => {
+    const { screenshot } = files;
+    const { id } = user;
+    console.log(id);
+
+    try {
+        if (!screenshot || screenshot.length === 0) {
+            const error = { ...BAD_REQUEST, message: "No image was uploaded" };
+            throw new AppError(error.code, error.message, error.statusCode);
+        }
+
+        const screenshotLocalPath = screenshot[0].path;
+        const uploadedScreenshot = await uploadOnCloudinary(screenshotLocalPath);
+
+        if (!uploadedScreenshot) {
+            const error = { ...BAD_REQUEST, message: "Error uploading image" };
+            throw new AppError(error.code, error.message, error.statusCode);
+        }
+
+        const screenshotDocument = await userModel.findOneAndUpdate({ _id: id }, { screenshot: uploadedScreenshot.url }, { new: true });
+
+        if (!screenshotDocument) {
+            const error = { ...BAD_REQUEST, message: "Error uploading image" };
+            throw new AppError(error.code, error.message, error.statusCode);
+        }
+
+        return screenshotDocument;
+
+    } catch (err) {
+        throw err;
+    }
+};
 
 
 
 
-module.exports = { create, getAll, get, update, deleteOne, filter };
+
+module.exports = { create, getAll, get, update, deleteOne, filter, upload };

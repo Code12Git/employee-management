@@ -1,3 +1,3 @@
 const authenticator = require('./authentication')
-
-module.exports = { authenticator }
+const uploader = require('./multer')
+module.exports = { authenticator, uploader }

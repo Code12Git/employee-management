@@ -3,7 +3,7 @@ import { X } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { fetchPayroll } from '../../../redux/action/payloadAction';
+import { deletePayroll, fetchPayroll } from '../../../redux/action/payloadAction';
 
 const ViewPayload = ({ closeModal, user }) => {
     const dispatch = useDispatch();
@@ -15,16 +15,20 @@ const ViewPayload = ({ closeModal, user }) => {
         }
     }, [dispatch, user._id]);
 
+    const handleDelete = (id) => {
+        dispatch(deletePayroll(id));
+    };
+
     return (
         <motion.div
-            className="fixed inset-0 bg-gradient-to-br from-purple-600 via-blue-500 to-indigo-600 bg-opacity-70 flex justify-center items-center z-50"
+            className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
         >
             <motion.div
-                className="bg-white w-full max-w-md sm:max-w-lg mx-4 sm:mx-auto p-6 sm:p-8 rounded-2xl shadow-2xl relative overflow-y-auto max-h-screen"
+                className="bg-white w-full max-w-lg mx-4 sm:mx-auto p-6 rounded-lg shadow-xl relative overflow-y-auto max-h-screen"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
@@ -32,51 +36,67 @@ const ViewPayload = ({ closeModal, user }) => {
             >
                 <button
                     onClick={closeModal}
-                    className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500 rounded-full"
+                    className="absolute top-4 right-4 text-gray-600 hover:text-gray-800 focus:outline-none"
                 >
                     <X className="w-6 h-6" />
                 </button>
 
-                <div className="mt-4">
-                    <h2 className="text-2xl font-extrabold text-gray-900 mb-6 text-center">Payroll Details for {user.name}</h2>
+                <div className="text-center">
+                    <h2 className="text-2xl font-bold text-gray-800 mb-6">Payroll Details for {user.name}</h2>
+                </div>
 
-                    {loading ? (
-                        <p className="text-center text-gray-600 animate-pulse">Loading payroll data...</p>
-                    ) : error ? (
-                        <p className="text-center text-red-500">Error: {error}</p>
-                    ) : payroll && payroll.length > 0 ? (
-                        <div className="space-y-6">
-                            {payroll.map((pay, index) => (
-                                <div key={index} className="bg-gray-50 p-4 rounded-lg shadow-md">
-                                    <p className="font-semibold text-gray-800">Salary:</p>
-                                    <p className="text-gray-600">{pay.salary}</p>
-
-                                    <p className="font-semibold text-gray-800 mt-2">Bonuses:</p>
-                                    <p className="text-gray-600">{pay.bonuses}</p>
-
-                                    <p className="font-semibold text-gray-800 mt-2">Deductions:</p>
-                                    <p className="text-gray-600">{pay.deductions}</p>
-
-                                    <p className="font-semibold text-gray-800 mt-2">Final Salary:</p>
-                                    <p className="text-gray-600">{pay.finalSalary}</p>
-
-                                    <p className="font-semibold text-gray-800 mt-2">Month:</p>
-                                    <p className="text-gray-600">{pay.month}</p>
-                                </div>
-                            ))}
-                        </div>
-                    ) : (
-                        <p className="text-center text-gray-500">No payroll data available.</p>
-                    )}
-
-                    <div className="mt-8 flex justify-center">
-                        <button
-                            onClick={closeModal}
-                            className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-6 py-3 rounded-lg shadow-lg hover:opacity-90 focus:outline-none focus:ring-4 focus:ring-indigo-500 transition-all duration-200"
-                        >
-                            Close
-                        </button>
+                {loading ? (
+                    <div className="text-center mt-4">
+                        <p className="text-gray-600">Loading payroll data...</p>
                     </div>
+                ) : error ? (
+                    <div className="text-center mt-4">
+                        <p className="text-red-600">Error: {error}</p>
+                    </div>
+                ) : payroll && payroll.length > 0 ? (
+                    <div className="space-y-6 mt-4">
+                        {payroll.map((pay, index) => (
+                            <div key={index} className="border rounded-lg p-4 bg-gray-50 shadow-sm">
+                                <h3 className="font-bold text-gray-700">Payroll Record {index + 1}</h3>
+                                <div className="mt-2">
+                                    <p className="font-semibold text-gray-800">Salary:
+                                        <span className="font-normal text-gray-600"> {pay.salary}</span>
+                                    </p>
+                                    <p className="font-semibold text-gray-800">Bonuses:
+                                        <span className="font-normal text-gray-600"> {pay.bonuses}</span>
+                                    </p>
+                                    <p className="font-semibold text-gray-800">Deductions:
+                                        <span className="font-normal text-gray-600"> {pay.deductions}</span>
+                                    </p>
+                                    <p className="font-semibold text-gray-800">Final Salary:
+                                        <span className="font-normal text-gray-600"> {pay.finalSalary}</span>
+                                    </p>
+                                    <p className="font-semibold text-gray-800">Month:
+                                        <span className="font-normal text-gray-600"> {pay.month}</span>
+                                    </p>
+                                </div>
+                                <button
+                                    onClick={() => handleDelete(pay._id)}
+                                    className="mt-4 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-200"
+                                >
+                                    Delete
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <div className="text-center mt-4">
+                        <p className="text-gray-600">No payroll data available.</p>
+                    </div>
+                )}
+
+                <div className="mt-8 flex justify-end">
+                    <button
+                        onClick={closeModal}
+                        className="bg-blue-600 text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-700 transition duration-200"
+                    >
+                        Close
+                    </button>
                 </div>
             </motion.div>
         </motion.div>
