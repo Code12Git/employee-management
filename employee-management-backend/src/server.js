@@ -12,7 +12,14 @@ const PORT = fromEnv('APP_PORT') || 3000;
 
 connection()
 
-app.use(cors());
+const corsOptions = {
+    origin: 'https://megamindsassesment.netlify.app',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use('/api/v1/auth', authRoute)
