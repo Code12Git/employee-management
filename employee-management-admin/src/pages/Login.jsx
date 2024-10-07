@@ -23,11 +23,13 @@ const Login = () => {
             const token = user.data.data.token;
 
             setCredentials({ username: '', password: '' });
-            localStorage.setItem('user', JSON.stringify(userData));
-            localStorage.setItem('token', JSON.stringify(token));
+            if (userData.role === 'admin') {
+                localStorage.setItem('user', JSON.stringify(userData));
+                localStorage.setItem('token', JSON.stringify(token));
+            }
 
             toast.success('Login successful');
-            navigate('/users');
+            navigate('/employee');
         } catch (err) {
             setLoginError('An error occurred. Please try again later.');
             console.error(err);

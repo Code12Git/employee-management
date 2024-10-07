@@ -11,7 +11,7 @@ const fetchPayroll = (id) => async (dispatch) => {
         const response = await privateInstance.get(`/payroll/${id}`);
         dispatch({ type: FETCH_PAYROLL_SUCCESS, payload: response.data.data });
     } catch (error) {
-        dispatch({ type: FETCH_PAYROLL_FAILURE, payload: error.message });
+        dispatch({ type: FETCH_PAYROLL_FAILURE, payload: 'No payroll data found' });
     }
 }
 
@@ -45,11 +45,12 @@ const updatePayroll = (id, data) => async (dispatch) => {
     dispatch({ type: UPDATE_PAYROLL_REQUEST });
     try {
         const response = await privateInstance.put(`/payroll/${id}`, data);
-        dispatch({ type: UPDATE_PAYROLL_SUCCESS, payload: { id, data: response.data } });
+        dispatch({ type: UPDATE_PAYROLL_SUCCESS, payload: response.data });
     } catch (error) {
-        dispatch({ type: UPDATE_PAYROLL_FAILURE, payload: error.message || "Failed to update PAYROLL" });
+        dispatch({ type: UPDATE_PAYROLL_FAILURE, payload: error.message || "Failed to update payroll" });
     }
 };
+
 
 
 export { fetchPayroll, deletePayroll, updatePayroll, createPayroll }

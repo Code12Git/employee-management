@@ -55,7 +55,7 @@ const CreateEmployee = () => {
     };
 
     return (
-        <div className="flex justify-center items-center bg-gray-100">
+        <div className="flex justify-center items-center  bg-gray-100">
             <form className="w-full max-w-lg p-8 bg-white mt-12 shadow-md rounded" onSubmit={submitHandler}>
                 <h2 className="text-2xl font-bold text-center mb-6">Create Employee</h2>
 

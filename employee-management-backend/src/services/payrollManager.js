@@ -21,7 +21,7 @@ const create = async (body) => {
 };
 
 const update = async (params, body) => {
-    const { payrollId } = params;
+    const { payrollId } = params.id;
     const { salary, deductions, finalSalary, month, bonuses } = body;
 
     try {
@@ -42,7 +42,7 @@ const update = async (params, body) => {
 
 
 const deleteOne = async (params) => {
-    const { payrollId } = params;
+    const payrollId = params.id;
 
     try {
         const salaryRecord = await payrollModel.findByIdAndDelete(payrollId, { new: true, runValidators: true });
@@ -59,17 +59,17 @@ const deleteOne = async (params) => {
 };
 
 const get = async (params) => {
-    const { employeeId } = params;
+    const employeeId = params.id;
 
     try {
-        const salaryRecord = await payrollModel.find(employeeId).populate('employeeId');
+        const salaryRecords = await payrollModel.find({ employeeId }).populate('employeeId');
 
-        if (!salaryRecord) {
-            const error = { ...NOT_FOUND, message: "Salary record not found" };
+        if (!salaryRecords || salaryRecords.length === 0) {
+            const error = { ...NOT_FOUND, message: "Salary records not found for this employee" };
             throw new AppError(error.code, error.message, error.statusCode);
         }
 
-        return salaryRecord;
+        return salaryRecords;
     } catch (err) {
         throw err;
     }

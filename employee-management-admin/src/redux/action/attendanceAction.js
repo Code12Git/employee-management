@@ -9,7 +9,6 @@ const fetchAttendance = () => async (dispatch) => {
     dispatch({ type: FETCH_ATTENDANCE_REQUEST })
     try {
         const response = await privateInstance.get('/attendance');
-        console.log("Attendance:", response)
         dispatch({ type: FETCH_ATTENDANCE_SUCCESS, payload: response.data.data });
     } catch (error) {
         dispatch({ type: FETCH_ATTENDANCE_FAILURE, payload: error.message });
@@ -34,7 +33,6 @@ const updateAttendance = (id, data) => async (dispatch) => {
 
     try {
         const response = await privateInstance.put(`/attendance/${id}`, data);
-
         dispatch({ type: UPDATE_ATTENDANCE_SUCCESS, payload: { id, data: response.data } });
     } catch (error) {
         dispatch({ type: UPDATE_ATTENDANCE_FAILURE, payload: error.message || "Failed to update attendance" });

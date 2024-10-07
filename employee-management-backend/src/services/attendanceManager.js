@@ -4,10 +4,9 @@ const { AppError } = require('../utils');
 const _ = require('lodash');
 
 
-const create = async (body, user) => {
+const create = async (body, params) => {
     const { status } = body;
-    const employeeId = user._id;
-
+    const employeeId = params.id
     try {
         if (_.isEmpty(status)) {
             const error = { ...BAD_REQUEST, message: "Status is empty" };
@@ -31,8 +30,8 @@ const create = async (body, user) => {
 };
 
 
-const get = async (user) => {
-    const employeeId = user._id
+const get = async (params) => {
+    const employeeId = params.id
     try {
         const attendance = await attendanceModel.find({ employeeId }).populate('employeeId');
         if (!attendance || attendance.length === 0) {

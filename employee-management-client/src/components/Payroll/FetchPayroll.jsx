@@ -29,7 +29,6 @@ const FetchPayroll = () => {
                         <th className="py-3 px-4 border-b text-left">Deductions</th>
                         <th className="py-3 px-4 border-b text-left">Final Salary</th>
                         <th className="py-3 px-4 border-b text-left">Created At</th>
-                        <th className="py-3 px-4 border-b text-left">Updated At</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,7 +41,6 @@ const FetchPayroll = () => {
                                 <td className="py-3 px-4 border-b">{item.deductions.toLocaleString()}</td>
                                 <td className="py-3 px-4 border-b">{item.finalSalary.toLocaleString()}</td>
                                 <td className="py-3 px-4 border-b">{new Date(item.createdAt).toLocaleString()}</td>
-                                <td className="py-3 px-4 border-b">{new Date(item.updatedAt).toLocaleString()}</td>
                             </tr>
                         ))
                     ) : (

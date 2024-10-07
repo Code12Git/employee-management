@@ -40,7 +40,7 @@ export default function EmployeeAction() {
 
     return (
         <>
-            <TableContainer component={Paper} className="shadow-lg rounded-lg p-4">
+            <TableContainer component={Paper} className="shadow-lg mt-24 rounded-lg p-4">
                 {error && <p className="text-red-500 text-center">{error}</p>}
                 {loading && (
                     <div className="flex justify-center items-center h-32">
@@ -65,7 +65,7 @@ export default function EmployeeAction() {
                     <TableBody>
                         {employees.length > 0 ? (
                             employees
-                                .filter(row => row.role !== 'admin')  // Filter out admins
+                                .filter(row => row.role !== 'admin')
                                 .map((row) => (
                                     <TableRow
                                         key={row._id}
@@ -76,9 +76,9 @@ export default function EmployeeAction() {
                                         {mandatoryHeaders.map((header, index) => (
                                             <TableCell key={index} align="center" className="text-gray-700">
                                                 {header === 'createdAt' ? (
-                                                    new Date(row[header]).toLocaleDateString()  // Convert createdAt to a readable date
+                                                    new Date(row[header]).toLocaleDateString()
                                                 ) : (
-                                                    row[header]  // Render other fields as is
+                                                    row[header]
                                                 )}
                                             </TableCell>
                                         ))}

@@ -46,6 +46,7 @@ const FetchAttendance = () => {
                             <th className="border px-4 py-2">Department</th>
                             <th className="border px-4 py-2">Position</th>
                             <th className="border px-4 py-2">Attendance Status</th>
+                            <th className="border px-4 py-2">Created At</th>
                             <th className="border px-4 py-2">Actions</th>
                         </tr>
                     </thead>
@@ -58,6 +59,7 @@ const FetchAttendance = () => {
                                 <td className="border px-4 py-2">{attendance.employeeId?.department || 'N/A'}</td>
                                 <td className="border px-4 py-2">{attendance.employeeId?.position || 'N/A'}</td>
                                 <td className="border px-4 py-2">{attendance.status || 'N/A'}</td>
+                                <td className="border px-4 py-2">{attendance.createdAt ? new Date(attendance.createdAt).toLocaleString() : 'N/A'}</td>
                                 <td className="border px-4 py-2">
                                     <button
                                         className="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600 mr-2"

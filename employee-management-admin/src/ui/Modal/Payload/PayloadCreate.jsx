@@ -7,7 +7,6 @@ import { createPayroll } from '../../../redux/action/payloadAction';
 
 const PayloadCreate = ({ closeModal, user }) => {
     const dispatch = useDispatch();
-    console.log(user);
     const [payrollData, setPayrollData] = useState({
         employeeId: user._id,
         salary: '',

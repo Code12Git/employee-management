@@ -18,6 +18,19 @@ const getAll = async (request, response) => {
     }
 };
 
+const upload = async (request, response) => {
+    try {
+
+
+        const result = await screenshotService.createScreenshot(request.files, request.user);
+
+        return responseManager.sendSuccessResponse(response, result, "Employee picture uploaded successfully");
+    } catch (err) {
+        return responseManager.sendErrorResponse(response, err, "Error uploading employee picture");
+    }
+};
+
+
 const get = async (request, response) => {
     try {
         const result = await employeeManager.get(request.params.id);
@@ -56,11 +69,4 @@ const filter = async (request, response) => {
 };
 
 
-module.exports = {
-    create,
-    getAll,
-    get,
-    update,
-    deleteOne,
-    filter,
-};
+module.exports = { create, getAll, get, update, deleteOne, filter, upload };

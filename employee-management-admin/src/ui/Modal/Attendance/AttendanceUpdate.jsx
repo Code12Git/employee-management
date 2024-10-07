@@ -3,7 +3,7 @@ import { X } from 'lucide-react';
 import { useState } from "react";
 import PropTypes from 'prop-types';
 import { useDispatch } from "react-redux";
-import { updateAttendance } from "../../../redux/action/attendanceAction";
+import { fetchAttendance, updateAttendance } from "../../../redux/action/attendanceAction";
 
 const AttendanceUpdate = ({ closeModal, user }) => {
     const [updatedStatus, setUpdatedStatus] = useState(user.status || "");
@@ -16,7 +16,13 @@ const AttendanceUpdate = ({ closeModal, user }) => {
         setUpdatedStatus(updatedStatus);
 
         dispatch(updateAttendance(user._id, { status: updatedStatus }))
-        closeModal();
+            .then(() => {
+                dispatch(fetchAttendance());
+                closeModal();
+            })
+            .catch((error) => {
+                console.error('Error updating attendance:', error);
+            });
     };
 
     return (

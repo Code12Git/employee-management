@@ -25,6 +25,7 @@ const Navbar = () => {
                             </a>
                         </div>
                         <div className="hidden md:flex space-x-8">
+
                             <NavLink to='/attendance' className="hover:bg-indigo-500 hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition duration-300 ease-in-out">
                                 Attendance
                             </NavLink>
@@ -65,6 +66,7 @@ const Navbar = () => {
                         className="md:hidden bg-indigo-600"
                     >
                         <div className="px-2 pt-2 pb-3 space-y-1">
+
                             <NavLink to='/attendance' className="hover:bg-indigo-500 hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition duration-300 ease-in-out">
                                 Attendance
                             </NavLink>

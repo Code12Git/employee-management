@@ -5,15 +5,16 @@ import { fetchAttendance } from '../../redux/actions/attendanceAction';
 const FetchAttendance = () => {
     const dispatch = useDispatch();
     const { user } = useSelector(state => state.userData);
-    const { attendance, loading, error } = useSelector(state => state.attendanceData); // Assuming your Redux state has attendance
-    console.log(attendance);
+    const { attendance, loading, error } = useSelector(state => state.attendanceData);
 
     useEffect(() => {
         const fetchData = async () => {
-            await dispatch(fetchAttendance(user._id));
+            if (user?._id) {
+                await dispatch(fetchAttendance(user._id));
+            }
         };
         fetchData();
-    }, [dispatch, user._id]);
+    }, [dispatch, user?._id]);
 
     if (loading) return <p className="text-center">Loading...</p>;
     if (error) return <p className="text-center text-red-500">Error: {error}</p>;
@@ -36,9 +37,9 @@ const FetchAttendance = () => {
                         {attendance && attendance.length > 0 ? (
                             attendance.map((att) => (
                                 <tr key={att._id} className="hover:bg-gray-100 transition-colors duration-200">
-                                    <td className="py-2 px-4 border-b border-gray-300">{att.employeeId.name}</td>
-                                    <td className="py-2 px-4 border-b border-gray-300">{att.employeeId.email}</td>
-                                    <td className="py-2 px-4 border-b border-gray-300">{att.employeeId.department}</td>
+                                    <td className="py-2 px-4 border-b border-gray-300">{att.employeeId?.name || 'N/A'}</td>
+                                    <td className="py-2 px-4 border-b border-gray-300">{att.employeeId?.email || 'N/A'}</td>
+                                    <td className="py-2 px-4 border-b border-gray-300">{att.employeeId?.department || 'N/A'}</td>
                                     <td className="py-2 px-4 border-b border-gray-300">{att.status}</td>
                                     <td className="py-2 px-4 border-b border-gray-300">{new Date(att.createdAt).toLocaleString()}</td>
                                 </tr>
