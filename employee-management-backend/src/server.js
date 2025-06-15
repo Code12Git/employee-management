@@ -13,7 +13,7 @@ const PORT = fromEnv('APP_PORT') || 3000;
 connection()
 
 const corsOptions = {
-    origin: ['https://megamindsassesment.netlify.app', 'https://megamindsassesmentemployee.netlify.app'],
+    origin: ['https://employee-management-1-4rjm.onrender.com', 'https://megamindsassesmentemployee.netlify.app'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
     optionsSuccessStatus: 200,
@@ -26,6 +26,12 @@ app.use('/api/v1/auth', authRoute)
 app.use('/api/v1/employee', employeeRoute)
 app.use('/api/v1/attendance', attendanceRoute)
 app.use('/api/v1/payroll', payrollRoute)
+
+app.use(express.static(path.join(__dirname, 'employee-management-client/dist')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'employee-management-client/dist', 'index.html'));
+});
 
 app.use((req, res, next) => {
     logger.info({
