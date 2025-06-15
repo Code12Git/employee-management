@@ -23,6 +23,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
+app.use(express.static(path.join(__dirname, '../../employee-management-client/dist')));
 
 app.use('/api/v1/auth', authRoute)
 app.use('/api/v1/employee', employeeRoute)
@@ -42,6 +43,9 @@ app.use((req, res, next) => {
 app.get("/ping", (req, res) => {
     res.status(200).json({ message: ' Working!' })
 });
+
+app.use(express.static(path.join(__dirname, '../../employee-management-client/dist/index.html')));
+
 
 
 app.listen(PORT, () => {
