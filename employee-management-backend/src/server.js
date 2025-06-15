@@ -29,12 +29,6 @@ app.use('/api/v1/employee', employeeRoute)
 app.use('/api/v1/attendance', attendanceRoute)
 app.use('/api/v1/payroll', payrollRoute)
 
-app.use(express.static(path.join(__dirname, '../../employee-management-client/dist')));
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../employee-management-client/dist', 'index.html'));
-});
-
 app.use((req, res, next) => {
     logger.info({
         method: req.method,
