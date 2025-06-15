@@ -7,6 +7,8 @@ const authRoute = require('./routes/authRoute')
 const employeeRoute = require('./routes/employeeRoute')
 const attendanceRoute = require('./routes/attendanceRoute')
 const payrollRoute = require('./routes/payrollRoute')
+const path = require('path');
+
 const app = express()
 const PORT = fromEnv('APP_PORT') || 3000;
 
